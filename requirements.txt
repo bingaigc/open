@@ -1,0 +1,38 @@
+# OpenClaw 向量记忆系统依赖
+# Vector Memory System Requirements
+
+# 核心依赖
+qdrant-client==1.7.0
+sentence-transformers==2.2.2
+
+# 深度学习框架
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# NLP 和嵌入模型
+transformers>=4.30.0
+tokenizers>=0.13.0
+
+# 数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 配置和工具
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# 日志和监控
+loguru>=0.7.0
+
+# 可选：OpenAI 集成
+# openai>=1.0.0
+
+# 可选：其他向量数据库支持
+# chromadb>=0.4.0
+# pymilvus>=2.3.0
+
+# 开发工具（可选）
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0

@@ -419,6 +419,38 @@ collaboration:
   communication_style: "security_focused"
   review_participation: "mandatory"
 
+# 向量记忆配置
+vector_memory:
+  enabled: true
+  collection_name: "agent_sec_001_memory"
+  embedding_model: "BAAI/bge-large-zh-v1.5"
+  vector_size: 1024
+  search_config:
+    default_top_k: 10
+    min_similarity_score: 0.75
+    max_results: 50
+  memory_types:
+    - "vulnerability"
+    - "threat"
+    - "incident"
+    - "security_policy"
+    - "audit_finding"
+    - "compliance_check"
+  importance_weights:
+    vulnerability: 1.0
+    threat: 0.95
+    incident: 0.9
+    security_policy: 0.85
+    compliance_check: 0.8
+  retention:
+    max_age_days: 365  # 安全记录保留1年
+    min_importance: 0.4
+    auto_cleanup: false  # 不自动清理安全记录
+  consolidation:
+    enabled: true
+    similarity_threshold: 0.90
+    interval_hours: 72
+
 # 性能配置
 performance:
   max_concurrent_scans: 3

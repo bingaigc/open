@@ -143,6 +143,35 @@ learning:
   continuous_improvement: true
   knowledge_base: "/opt/openclaw/agents/knowledge/ceo"
 
+# 向量记忆配置
+vector_memory:
+  enabled: true
+  collection_name: "agent_ceo_001_memory"
+  embedding_model: "BAAI/bge-large-zh-v1.5"
+  vector_size: 1024
+  search_config:
+    default_top_k: 5
+    min_similarity_score: 0.7
+    max_results: 20
+  memory_types:
+    - "decision"
+    - "strategic_planning"
+    - "performance_review"
+    - "resource_allocation"
+  importance_weights:
+    decision: 0.9
+    strategic: 0.9
+    business: 0.8
+    operational: 0.7
+  retention:
+    max_age_days: 180  # 保留6个月
+    min_importance: 0.3
+    auto_cleanup: true
+  consolidation:
+    enabled: true
+    similarity_threshold: 0.95
+    interval_hours: 24
+
 # 安全配置
 security:
   authentication: "jwt"

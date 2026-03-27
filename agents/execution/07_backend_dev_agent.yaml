@@ -314,6 +314,37 @@ learning:
     - "Code repositories"
   knowledge_base: "/opt/openclaw/agents/knowledge/backend"
 
+# 向量记忆配置
+vector_memory:
+  enabled: true
+  collection_name: "agent_be_dev_001_memory"
+  embedding_model: "BAAI/bge-large-zh-v1.5"
+  vector_size: 1024
+  search_config:
+    default_top_k: 8
+    min_similarity_score: 0.65
+    max_results: 30
+  memory_types:
+    - "code_solution"
+    - "bug_fix"
+    - "architecture_decision"
+    - "api_design"
+    - "performance_optimization"
+  importance_weights:
+    code_solution: 0.8
+    bug_fix: 0.85
+    architecture_decision: 0.9
+    api_design: 0.8
+    technical: 0.7
+  retention:
+    max_age_days: 90
+    min_importance: 0.3
+    auto_cleanup: true
+  consolidation:
+    enabled: true
+    similarity_threshold: 0.92
+    interval_hours: 48
+
 # 任务优先级
 task_priorities:
   critical:

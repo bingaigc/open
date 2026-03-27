@@ -1,0 +1,157 @@
+# 向量数据库配置文件
+# Vector Database Configuration for OpenClaw Agent Memory System
+
+vector_database:
+  # 数据库提供商
+  provider: "qdrant"  # qdrant, chromadb, milvus
+
+  # 连接配置
+  connection:
+    host: "localhost"
+    port: 6333
+    grpc_port: 6334
+    api_key: null  # 可选，生产环境建议设置
+    https: false
+    timeout: 30
+    connection_pool_size: 10
+
+  # 集合配置
+  collections:
+    default_config:
+      vector_size: 1024  # 向量维度（根据嵌入模型调整）
+      distance: "Cosine"  # Cosine, Euclidean, Dot
+      on_disk_payload: true  # 是否将 payload 存储在磁盘
+
+    # HNSW 索引配置
+    hnsw_config:
+      m: 16  # 每个节点的连接数（越大越精确但越慢）
+      ef_construct: 100  # 构建时的搜索范围
+      full_scan_threshold: 10000  # 全量扫描阈值
+
+    # 优化器配置
+    optimizers_config:
+      memmap_threshold_kb: 100000  # 内存映射阈值 (100MB)
+      indexing_threshold: 20000  # 索引阈值
+
+  # 嵌入模型配置
+  embedding:
+    # 提供商: local, openai, huggingface
+    provider: "local"
+
+    # 本地模型配置
+    model: "BAAI/bge-large-zh-v1.5"  # 中文优化模型
+    # 其他可选模型:
+    # - "sentence-transformers/paraphrase-multilingual-mpnet-base-v2" (多语言)
+    # - "BAAI/bge-base-zh-v1.5" (更快但精度略低)
+    # - "moka-ai/m3e-base" (中文)
+
+    batch_size: 32  # 批处理大小
+    device: "cpu"  # cpu, cuda, mps
+    normalize_embeddings: true  # 是否归一化向量
+
+    # OpenAI 配置（如果使用 OpenAI）
+    openai:
+      api_key: "${OPENAI_API_KEY}"
+      model: "text-embedding-3-large"
+      dimensions: 1024  # 可选，降低维度以节省成本
+
+  # 性能配置
+  performance:
+    search_batch_size: 100  # 搜索批处理大小
+    max_retries: 3  # 最大重试次数
+    retry_delay: 1  # 重试延迟（秒）
+    cache_enabled: true  # 是否启用嵌入缓存
+    cache_size: 1000  # 缓存大小
+
+  # 记忆管理配置
+  memory_management:
+    # 自动整合
+    auto_consolidate: true  # 是否自动整合相似记忆
+    consolidate_interval: 86400  # 整合间隔（秒，24小时）
+    consolidate_similarity_threshold: 0.95  # 相似度阈值
+
+    # 自动清理
+    auto_cleanup: true  # 是否自动清理旧记忆
+    cleanup_interval: 604800  # 清理间隔（秒，7天）
+    max_memory_age_days: 90  # 最大记忆保留天数
+    min_importance_to_keep: 0.3  # 保留的最小重要性
+
+    # 重要性衰减
+    importance_decay_enabled: true  # 是否启用重要性衰减
+    importance_decay_rate: 0.01  # 每天衰减率
+    min_importance: 0.1  # 最小重要性
+
+    # 访问统计
+    track_access: true  # 是否跟踪访问统计
+    boost_importance_on_access: true  # 访问时是否提升重要性
+    importance_boost_factor: 0.05  # 提升因子
+
+  # 搜索配置
+  search:
+    default_top_k: 5  # 默认返回结果数
+    max_top_k: 100  # 最大返回结果数
+    default_min_score: 0.7  # 默认最小相似度分数
+    enable_hybrid_search: false  # 是否启用混合搜索（向量+关键词）
+
+  # 备份配置
+  backup:
+    enabled: true
+    path: "/opt/openclaw/backups/vector_db"
+    frequency: "daily"  # daily, weekly
+    retention_days: 30
+    compress: true
+
+  # 监控配置
+  monitoring:
+    enabled: true
+    metrics_port: 9091
+    log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+    log_file: "/opt/openclaw/logs/vector_memory.log"
+
+    # 告警阈值
+    alerts:
+      search_latency_ms: 1000  # 搜索延迟告警阈值
+      storage_usage_percent: 80  # 存储使用率告警阈值
+      error_rate_percent: 5  # 错误率告警阈值
+
+# 智能体特定配置（可选）
+agents:
+  # CEO Agent 配置
+  ceo_001:
+    collection_name: "agent_ceo_001_memory"
+    importance_weights:
+      decision: 0.9
+      strategic: 0.8
+      business: 0.7
+    memory_retention_days: 180  # 保留更长时间
+
+  # Backend Developer Agent 配置
+  be_dev_001:
+    collection_name: "agent_be_dev_001_memory"
+    importance_weights:
+      technical: 0.9
+      code: 0.8
+    memory_retention_days: 90
+
+  # Security Expert Agent 配置
+  sec_001:
+    collection_name: "agent_sec_001_memory"
+    importance_weights:
+      security: 1.0
+      vulnerability: 0.9
+    memory_retention_days: 365  # 安全记忆保留更长
+
+# 共享知识库配置
+shared_knowledge:
+  enabled: true
+  collection_name: "shared_knowledge"
+  access_control:
+    default_access: "read"  # read, write, none
+    restricted_agents: []  # 受限智能体列表
+
+# 智能体交互历史配置
+agent_interactions:
+  enabled: true
+  collection_name: "agent_interactions"
+  track_all_interactions: true
+  retention_days: 30
