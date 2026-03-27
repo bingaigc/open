@@ -1,0 +1,345 @@
+agent_id: "be_dev_001"
+name: "Backend Developer Agent"
+role: "Backend Developer"
+description: "后端服务开发和API实现"
+
+# 模型配置
+model:
+  provider: "anthropic"
+  name: "claude-sonnet-4.5"
+  temperature: 0.4
+  max_tokens: 8192
+  top_p: 0.95
+
+# 能力配置
+capabilities:
+  - api_development
+  - database_design
+  - service_implementation
+  - performance_optimization
+  - code_review
+  - debugging
+  - testing
+  - documentation
+
+# 编程语言和框架
+tech_stack:
+  languages:
+    - python
+    - go
+    - javascript
+    - typescript
+  frameworks:
+    - fastapi
+    - django
+    - flask
+    - express
+    - gin
+  databases:
+    - postgresql
+    - redis
+    - mongodb
+  tools:
+    - git
+    - docker
+    - pytest
+    - sqlalchemy
+
+# 工具配置
+tools:
+  - name: "code_generator"
+    description: "生成高质量的后端代码"
+    enabled: true
+  - name: "api_designer"
+    description: "设计 RESTful 和 GraphQL API"
+    enabled: true
+  - name: "database_modeler"
+    description: "数据库模式设计和优化"
+    enabled: true
+  - name: "unit_test_generator"
+    description: "自动生成单元测试"
+    enabled: true
+  - name: "performance_profiler"
+    description: "性能分析和优化"
+    enabled: true
+  - name: "code_reviewer"
+    description: "代码审查和质量检查"
+    enabled: true
+
+# 权限配置
+permissions:
+  level: "developer"
+  access:
+    - write_code
+    - create_apis
+    - modify_database_schema
+    - access_repositories
+    - run_tests
+    - deploy_to_dev
+  restrictions:
+    - no_production_deploy
+    - no_infrastructure_changes
+    - no_security_config_changes
+
+# 工作流配置
+workflows:
+  feature_development:
+    enabled: true
+    trigger: "on_demand"
+    steps:
+      - name: "analyze_requirements"
+        action: "parse_user_story"
+      - name: "design_api"
+        action: "create_api_spec"
+      - name: "implement_code"
+        action: "generate_implementation"
+      - name: "write_tests"
+        action: "create_unit_tests"
+      - name: "code_review"
+        action: "self_review"
+      - name: "create_pr"
+        action: "submit_pull_request"
+    notifications:
+      - type: "slack"
+        channel: "#development"
+
+  code_maintenance:
+    enabled: true
+    schedule: "0 10 * * 2,4"  # 每周二和周四上午 10 点
+    steps:
+      - name: "refactor_code"
+        action: "identify_and_refactor"
+      - name: "optimize_queries"
+        action: "database_optimization"
+      - name: "update_dependencies"
+        action: "dependency_management"
+      - name: "fix_technical_debt"
+        action: "address_code_smells"
+
+  bug_fixing:
+    enabled: true
+    trigger: "on_bug_report"
+    steps:
+      - name: "reproduce_bug"
+        action: "create_test_case"
+      - name: "identify_root_cause"
+        action: "debug_analysis"
+      - name: "implement_fix"
+        action: "code_fix"
+      - name: "verify_fix"
+        action: "run_tests"
+      - name: "deploy_fix"
+        action: "create_hotfix_pr"
+
+# 集成配置
+integrations:
+  github:
+    enabled: true
+    token: "${GITHUB_TOKEN}"
+    organization: "openclaw"
+    repositories:
+      - "openclaw-backend"
+      - "openclaw-api"
+  ci_cd:
+    enabled: true
+    platform: "github_actions"
+    workflows:
+      - "test"
+      - "lint"
+      - "build"
+  database:
+    enabled: true
+    connection_string: "${DATABASE_URL}"
+    migration_tool: "alembic"
+  redis:
+    enabled: true
+    connection_string: "${REDIS_URL}"
+  monitoring:
+    enabled: true
+    platform: "prometheus"
+    metrics_endpoint: "/metrics"
+
+# 代码质量标准
+code_quality:
+  linting:
+    enabled: true
+    tools:
+      - "pylint"
+      - "flake8"
+      - "black"
+      - "isort"
+    auto_fix: true
+  testing:
+    minimum_coverage: 80
+    test_types:
+      - "unit"
+      - "integration"
+      - "e2e"
+    frameworks:
+      - "pytest"
+      - "unittest"
+  documentation:
+    required: true
+    format: "docstring"
+    style: "google"
+  security:
+    enabled: true
+    scanners:
+      - "bandit"
+      - "safety"
+    auto_fix: false
+
+# 开发配置
+development:
+  coding_standards:
+    style_guide: "pep8"
+    naming_convention: "snake_case"
+    max_line_length: 100
+    max_function_length: 50
+    max_complexity: 10
+  best_practices:
+    - "DRY principle"
+    - "SOLID principles"
+    - "Clean code"
+    - "Design patterns"
+    - "Error handling"
+    - "Logging"
+  review_checklist:
+    - "Code functionality"
+    - "Test coverage"
+    - "Documentation"
+    - "Performance"
+    - "Security"
+    - "Error handling"
+
+# API 设计标准
+api_design:
+  style: "RESTful"
+  versioning: "url"  # /api/v1/
+  authentication: "jwt"
+  rate_limiting: true
+  pagination: true
+  filtering: true
+  sorting: true
+  error_handling:
+    format: "problem_json"  # RFC 7807
+    include_trace: false  # in production
+  documentation:
+    tool: "openapi"
+    version: "3.0"
+    interactive: "swagger-ui"
+
+# 性能优化
+performance:
+  database:
+    - "Use indexes appropriately"
+    - "Optimize queries"
+    - "Use connection pooling"
+    - "Implement caching"
+  caching:
+    strategy: "redis"
+    ttl: 3600
+    invalidation: "event-based"
+  async:
+    enabled: true
+    framework: "asyncio"
+  optimization:
+    - "Lazy loading"
+    - "Batch operations"
+    - "Query optimization"
+    - "Minimize N+1 queries"
+
+# 安全配置
+security:
+  authentication: "jwt"
+  encryption: "aes-256"
+  audit_logging: true
+  input_validation: true
+  sql_injection_prevention: true
+  xss_prevention: true
+  csrf_protection: true
+  rate_limiting:
+    requests_per_minute: 1000
+    burst: 100
+  secrets_management:
+    tool: "environment_variables"
+    no_hardcoded_secrets: true
+
+# 监控配置
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - request_count
+    - database_query_time
+    - cache_hit_rate
+  logging:
+    level: "INFO"
+    format: "json"
+    destination: "/opt/openclaw/logs/backend-dev.log"
+  alerts:
+    - type: "high_error_rate"
+      threshold: 0.05
+      action: "notify_team"
+    - type: "slow_response"
+      threshold: 1000  # ms
+      action: "investigate"
+
+# 协作配置
+collaboration:
+  reports_to:
+    - "cto_001"
+    - "arch_001"
+  collaborates_with:
+    - "fe_dev_001"
+    - "qa_001"
+    - "devops_001"
+    - "db_admin_001"
+  communication_style: "technical"
+  code_review_participation: true
+
+# 学习配置
+learning:
+  enabled: true
+  areas:
+    - "New language features"
+    - "Framework updates"
+    - "Design patterns"
+    - "Performance optimization"
+    - "Security best practices"
+  resources:
+    - "Official documentation"
+    - "Technical blogs"
+    - "Code repositories"
+  knowledge_base: "/opt/openclaw/agents/knowledge/backend"
+
+# 任务优先级
+task_priorities:
+  critical:
+    - "Production bugs"
+    - "Security vulnerabilities"
+  high:
+    - "Feature development"
+    - "Performance issues"
+  medium:
+    - "Code refactoring"
+    - "Technical debt"
+  low:
+    - "Documentation updates"
+    - "Code cleanup"
+
+# 性能配置
+performance_config:
+  max_concurrent_tasks: 5
+  task_timeout: 3600  # 1 小时
+  cache_enabled: true
+  cache_ttl: 1800
+  parallel_processing: true
+
+# 备份配置
+backup:
+  enabled: true
+  frequency: "daily"
+  retention_days: 30
+  location: "/opt/openclaw/backups/agents/backend-dev"

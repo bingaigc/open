@@ -1,0 +1,436 @@
+agent_id: "sec_001"
+name: "Security Expert Agent"
+role: "Security Expert"
+description: "安全审计、漏洞扫描和安全防护"
+
+# 模型配置
+model:
+  provider: "anthropic"
+  name: "claude-opus-4.5"
+  temperature: 0.3
+  max_tokens: 8192
+  top_p: 0.9
+
+# 能力配置
+capabilities:
+  - vulnerability_scanning
+  - security_audit
+  - penetration_testing
+  - compliance_check
+  - incident_response
+  - threat_modeling
+  - security_architecture_review
+  - cryptography_implementation
+  - access_control_management
+
+# 专业领域
+expertise:
+  areas:
+    - "OWASP Top 10"
+    - "Network Security"
+    - "Application Security"
+    - "Infrastructure Security"
+    - "Cloud Security"
+    - "Cryptography"
+    - "Secure Coding"
+    - "Compliance (GDPR, SOC2, ISO27001)"
+  certifications:
+    - "CISSP equivalent knowledge"
+    - "CEH equivalent knowledge"
+    - "OSCP equivalent knowledge"
+
+# 工具配置
+tools:
+  - name: "vulnerability_scanner"
+    description: "扫描系统和应用漏洞"
+    enabled: true
+    tools:
+      - "nmap"
+      - "nikto"
+      - "openvas"
+      - "nessus"
+  - name: "code_security_analyzer"
+    description: "静态代码安全分析"
+    enabled: true
+    tools:
+      - "bandit"
+      - "semgrep"
+      - "sonarqube"
+      - "snyk"
+  - name: "dependency_checker"
+    description: "依赖项安全检查"
+    enabled: true
+    tools:
+      - "safety"
+      - "npm-audit"
+      - "dependabot"
+  - name: "penetration_tester"
+    description: "渗透测试工具"
+    enabled: true
+    tools:
+      - "metasploit"
+      - "burp-suite"
+      - "sqlmap"
+      - "zap"
+  - name: "compliance_checker"
+    description: "合规性检查"
+    enabled: true
+    standards:
+      - "OWASP"
+      - "CIS"
+      - "PCI-DSS"
+      - "GDPR"
+  - name: "log_analyzer"
+    description: "安全日志分析"
+    enabled: true
+    tools:
+      - "elk-stack"
+      - "splunk"
+      - "graylog"
+
+# 权限配置
+permissions:
+  level: "security_admin"
+  access:
+    - scan_all_systems
+    - access_all_logs
+    - configure_security_tools
+    - review_all_code
+    - access_secrets
+    - modify_security_configs
+    - audit_access_controls
+  restrictions:
+    - no_data_modification
+    - no_service_interruption
+    - require_approval_for_prod_scans
+
+# 工作流配置
+workflows:
+  daily_security_scan:
+    enabled: true
+    schedule: "0 2 * * *"  # 每天凌晨 2 点
+    steps:
+      - name: "vulnerability_scan"
+        action: "scan_infrastructure"
+      - name: "dependency_check"
+        action: "check_dependencies"
+      - name: "log_analysis"
+        action: "analyze_security_logs"
+      - name: "generate_report"
+        action: "create_security_report"
+    notifications:
+      - type: "email"
+        recipients: ["security_team", "cto"]
+      - type: "slack"
+        channel: "#security-alerts"
+
+  weekly_security_audit:
+    enabled: true
+    schedule: "0 10 * * 1"  # 每周一上午 10 点
+    steps:
+      - name: "code_audit"
+        action: "review_code_changes"
+      - name: "config_audit"
+        action: "audit_configurations"
+      - name: "access_audit"
+        action: "review_access_controls"
+      - name: "compliance_check"
+        action: "verify_compliance"
+      - name: "recommend_fixes"
+        action: "create_remediation_plan"
+
+  monthly_penetration_test:
+    enabled: true
+    schedule: "0 14 1 * *"  # 每月 1 号下午 2 点
+    steps:
+      - name: "reconnaissance"
+        action: "gather_information"
+      - name: "vulnerability_assessment"
+        action: "identify_vulnerabilities"
+      - name: "exploitation"
+        action: "test_exploits"
+      - name: "post_exploitation"
+        action: "assess_impact"
+      - name: "reporting"
+        action: "create_pentest_report"
+
+  incident_response:
+    enabled: true
+    trigger: "on_security_alert"
+    priority: "critical"
+    steps:
+      - name: "identify"
+        action: "analyze_incident"
+      - name: "contain"
+        action: "contain_threat"
+      - name: "eradicate"
+        action: "remove_threat"
+      - name: "recover"
+        action: "restore_services"
+      - name: "lessons_learned"
+        action: "document_incident"
+
+  code_review_security:
+    enabled: true
+    trigger: "on_pull_request"
+    steps:
+      - name: "static_analysis"
+        action: "run_sast_tools"
+      - name: "manual_review"
+        action: "security_code_review"
+      - name: "threat_modeling"
+        action: "identify_threats"
+      - name: "approval"
+        action: "approve_or_reject"
+
+# 安全检查清单
+security_checklist:
+  authentication:
+    - "Strong password policies"
+    - "Multi-factor authentication"
+    - "Session management"
+    - "Token expiration"
+    - "Brute force protection"
+  authorization:
+    - "Principle of least privilege"
+    - "Role-based access control"
+    - "Resource-level permissions"
+    - "API authorization"
+  data_protection:
+    - "Encryption at rest"
+    - "Encryption in transit"
+    - "Sensitive data handling"
+    - "Data anonymization"
+    - "Secure backups"
+  input_validation:
+    - "SQL injection prevention"
+    - "XSS prevention"
+    - "CSRF protection"
+    - "Command injection prevention"
+    - "File upload validation"
+  security_headers:
+    - "HSTS"
+    - "CSP"
+    - "X-Frame-Options"
+    - "X-Content-Type-Options"
+    - "X-XSS-Protection"
+  logging_monitoring:
+    - "Security event logging"
+    - "Audit trails"
+    - "Anomaly detection"
+    - "Real-time alerting"
+  dependency_management:
+    - "Regular updates"
+    - "Vulnerability scanning"
+    - "License compliance"
+  infrastructure:
+    - "Firewall configuration"
+    - "Network segmentation"
+    - "Patch management"
+    - "Secure configuration"
+
+# 漏洞严重级别
+severity_levels:
+  critical:
+    response_time: "immediate"
+    escalation: "cto"
+    examples:
+      - "Remote code execution"
+      - "SQL injection"
+      - "Authentication bypass"
+  high:
+    response_time: "24_hours"
+    escalation: "security_lead"
+    examples:
+      - "XSS"
+      - "CSRF"
+      - "Sensitive data exposure"
+  medium:
+    response_time: "1_week"
+    escalation: "team_lead"
+    examples:
+      - "Missing security headers"
+      - "Weak cryptography"
+  low:
+    response_time: "1_month"
+    escalation: "developer"
+    examples:
+      - "Information disclosure"
+      - "Best practice violations"
+
+# 集成配置
+integrations:
+  github:
+    enabled: true
+    token: "${GITHUB_TOKEN}"
+    security_scanning: true
+    secret_scanning: true
+    dependency_scanning: true
+  siem:
+    enabled: true
+    platform: "elastic"
+    connection_string: "${SIEM_URL}"
+  vulnerability_db:
+    enabled: true
+    sources:
+      - "NVD"
+      - "CVE"
+      - "OSVDB"
+  alerting:
+    enabled: true
+    channels:
+      - type: "slack"
+        webhook: "${SECURITY_SLACK_WEBHOOK}"
+      - type: "email"
+        recipients: ["security@openclaw.local"]
+      - type: "pagerduty"
+        api_key: "${PAGERDUTY_API_KEY}"
+
+# 报告配置
+reporting:
+  daily_summary:
+    enabled: true
+    recipients: ["security_team"]
+    includes:
+      - "New vulnerabilities"
+      - "Security alerts"
+      - "Scan results"
+  weekly_report:
+    enabled: true
+    recipients: ["cto", "management"]
+    includes:
+      - "Security posture"
+      - "Vulnerability trends"
+      - "Remediation progress"
+      - "Compliance status"
+  monthly_executive_report:
+    enabled: true
+    recipients: ["executives"]
+    includes:
+      - "Risk assessment"
+      - "Security investments"
+      - "Major incidents"
+      - "Strategic recommendations"
+
+# 合规配置
+compliance:
+  frameworks:
+    - name: "OWASP"
+      enabled: true
+      version: "2021"
+    - name: "CIS"
+      enabled: true
+      version: "8.0"
+    - name: "GDPR"
+      enabled: true
+      applicable: true
+    - name: "SOC2"
+      enabled: true
+      type: "Type II"
+  audits:
+    frequency: "quarterly"
+    external: false
+    documentation: true
+
+# 威胁情报
+threat_intelligence:
+  enabled: true
+  sources:
+    - "MITRE ATT&CK"
+    - "OWASP Top 10"
+    - "CVE Database"
+    - "Security blogs"
+  updates: "daily"
+  integration: "automatic"
+
+# 事件响应计划
+incident_response_plan:
+  phases:
+    - "Preparation"
+    - "Identification"
+    - "Containment"
+    - "Eradication"
+    - "Recovery"
+    - "Lessons Learned"
+  contacts:
+    - role: "Incident Commander"
+      agent: "sec_001"
+    - role: "Technical Lead"
+      agent: "cto_001"
+    - role: "Communications"
+      agent: "coo_001"
+  escalation_path:
+    - "Security Team"
+    - "CTO"
+    - "CEO"
+    - "Board"
+
+# 安全培训
+security_training:
+  enabled: true
+  frequency: "quarterly"
+  topics:
+    - "Secure coding practices"
+    - "OWASP Top 10"
+    - "Social engineering"
+    - "Incident response"
+    - "Data protection"
+  materials:
+    - "Documentation"
+    - "Videos"
+    - "Hands-on labs"
+    - "Quizzes"
+
+# 监控配置
+monitoring:
+  enabled: true
+  metrics:
+    - vulnerability_count
+    - mean_time_to_detect
+    - mean_time_to_respond
+    - security_coverage
+    - compliance_score
+  dashboards:
+    - "Security overview"
+    - "Vulnerability trends"
+    - "Compliance status"
+    - "Incident response"
+  alerts:
+    - type: "critical_vulnerability"
+      threshold: 1
+      action: "immediate_notification"
+    - type: "failed_login_attempts"
+      threshold: 5
+      window: "5m"
+      action: "lock_account"
+    - type: "suspicious_activity"
+      action: "investigate"
+
+# 协作配置
+collaboration:
+  reports_to:
+    - "cto_001"
+    - "ceo_001"
+  collaborates_with:
+    - "devops_001"
+    - "be_dev_001"
+    - "fe_dev_001"
+    - "legal_001"
+  communication_style: "security_focused"
+  review_participation: "mandatory"
+
+# 性能配置
+performance:
+  max_concurrent_scans: 3
+  scan_timeout: 7200  # 2 小时
+  cache_enabled: true
+  cache_ttl: 3600
+  parallel_scanning: true
+
+# 备份配置
+backup:
+  enabled: true
+  frequency: "daily"
+  retention_days: 90
+  location: "/opt/openclaw/backups/agents/security"
+  encrypted: true
