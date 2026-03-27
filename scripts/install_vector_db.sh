@@ -193,7 +193,7 @@ install_python_dependencies() {
     sudo -u openclaw bash << 'EOF'
 source /opt/openclaw/venv/bin/activate
 pip install --upgrade pip
-pip install qdrant-client==1.7.0
+pip install "qdrant-client>=1.9.0"  # 使用安全版本，修复输入验证漏洞
 pip install sentence-transformers==2.2.2
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 EOF

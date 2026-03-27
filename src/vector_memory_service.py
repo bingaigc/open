@@ -4,6 +4,8 @@
 为 OpenClaw 智能体提供基于向量数据库的记忆存储和检索能力。
 支持语义搜索、记忆整合、重要性评分等功能。
 
+安全提示: 需要 qdrant-client >= 1.9.0 以修复输入验证漏洞
+
 Author: OpenClaw Team
 License: MIT
 """

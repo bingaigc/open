@@ -2,7 +2,7 @@
 # Vector Memory System Requirements
 
 # 核心依赖
-qdrant-client==1.7.0
+qdrant-client>=1.9.0  # 修复输入验证漏洞 (CVE)
 sentence-transformers==2.2.2
 
 # 深度学习框架

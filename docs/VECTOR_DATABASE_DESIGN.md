@@ -374,8 +374,10 @@ systemctl start qdrant
 ### 依赖安装
 
 ```bash
-pip install qdrant-client sentence-transformers
+pip install "qdrant-client>=1.9.0" sentence-transformers
 ```
+
+**重要安全提示**: 请确保使用 qdrant-client >= 1.9.0 版本，以避免输入验证漏洞。
 
 ### 配置文件
 
